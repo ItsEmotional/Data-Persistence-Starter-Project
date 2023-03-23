@@ -10,7 +10,6 @@ public class DataManager : MonoBehaviour
     public static DataManager Instance;
     public string userName;
     public GameData SaveData;
-    public Text bestScoreText;
 
         private void Awake()
     {
