@@ -75,12 +75,19 @@ public class MainManager : MonoBehaviour
 
     public void setRecordText()
     {
-        recordText.text = "Best Score : " + dataManager.bestScoreHolder + " ; " + dataManager.bestScore;
+        recordText.text = "Best Score : " + dataManager.bestScoreHolder + " : " + dataManager.bestScore;
     }
 
     public void GameOver()
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+        if (m_Points > dataManager.bestScore)
+        {
+            dataManager.bestScore = m_Points;
+            dataManager.bestScoreHolder = dataManager.userName;
+            dataManager.SaveScore();
+            setRecordText();
+        }
     }
 }

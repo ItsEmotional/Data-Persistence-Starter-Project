@@ -15,6 +15,7 @@ public class MenuManager : MonoBehaviour
     public string playerName;
     public Button startButton;
     public Text inputfText;
+    public Text bestScoreText;
     public DataManager dataManager;
 
     // Start is called before the first frame update
@@ -22,6 +23,9 @@ public class MenuManager : MonoBehaviour
     {
         startButton.onClick.AddListener(StartNew);
         dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
+        string highScorePlayer = dataManager.bestScoreHolder;
+        int score = dataManager.bestScore;
+        bestScoreText.text = "Best Score : " + highScorePlayer + " : " + score;
 
     }
 

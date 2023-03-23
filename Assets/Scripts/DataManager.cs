@@ -12,21 +12,20 @@ public class DataManager : MonoBehaviour
     public string bestScoreHolder;
     public int bestScore;
     public int score;
-    public Text bestScoreText;
 
         private void Awake()
     {
-        if (Instance != null)
-        {
-            Destroy(Instance);
-        }
-        else
+        if (Instance == null)
         {
             Instance = this;
-        }
             DontDestroyOnLoad(gameObject);
             LoadData();
-            MenuScore();
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+
     }
 
 
@@ -54,11 +53,6 @@ public class DataManager : MonoBehaviour
         string json = JsonUtility.ToJson(data);
 
         File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
-    }
-
-    public void MenuScore()
-    {
-        bestScoreText.text = "Best Score : " + bestScoreHolder + " : " + bestScore;
     }
 
     public void LoadData()
