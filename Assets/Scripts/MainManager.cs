@@ -11,6 +11,8 @@ public class MainManager : MonoBehaviour
     public Rigidbody Ball;
 
     public Text ScoreText;
+    public Text recordText;
+    public DataManager dataManager;
     public GameObject GameOverText;
     
     private bool m_Started = false;
@@ -24,6 +26,7 @@ public class MainManager : MonoBehaviour
     {
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
+        dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
         
         int[] pointCountArray = new [] {1,1,2,2,5,5};
         for (int i = 0; i < LineCount; ++i)
@@ -36,6 +39,8 @@ public class MainManager : MonoBehaviour
                 brick.onDestroyed.AddListener(AddPoint);
             }
         }
+        dataManager.LoadData();
+        setRecordText();
     }
 
     private void Update()
@@ -65,7 +70,12 @@ public class MainManager : MonoBehaviour
     void AddPoint(int point)
     {
         m_Points += point;
-        ScoreText.text = $"Score : {m_Points}";
+        ScoreText.text = dataManager.userName + $" : Score : {m_Points}";
+    }
+
+    public void setRecordText()
+    {
+        recordText.text = "Best Score : " + dataManager.bestScoreHolder + " ; " + dataManager.bestScore;
     }
 
     public void GameOver()
