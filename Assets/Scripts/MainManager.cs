@@ -11,7 +11,7 @@ public class MainManager : MonoBehaviour
     public Rigidbody Ball;
 
     public Text ScoreText;
-    public Text recordText;
+    [SerializeField] private Text recordText;
     public DataManager dataManager;
     public GameObject GameOverText;
     
@@ -65,6 +65,13 @@ public class MainManager : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
+        if  (m_Points > dataManager.SaveData.record)
+        {
+            dataManager.SaveData.record = m_Points;
+            dataManager.SaveData.recordHolder = dataManager.userName;
+            dataManager.SaveScore();
+            setRecordText();
+        }
     }
 
     void AddPoint(int point)
@@ -75,7 +82,7 @@ public class MainManager : MonoBehaviour
 
     public void setRecordText()
     {
-        recordText.text = "Best Score : " + dataManager.bestScoreHolder + " ; " + dataManager.bestScore;
+        recordText.text = "Best Score : " + dataManager.SaveData.recordHolder + " : " + dataManager.SaveData.record;
     }
 
     public void GameOver()

@@ -898,7 +898,8 @@ MonoBehaviour:
   playerName: 
   startButton: {fileID: 1108987772}
   inputfText: {fileID: 1919064610}
-  recordHolder: {fileID: 1554455565}
+  bestScoreText: {fileID: 1554455565}
+  dataManager: {fileID: 1552379420}
 --- !u!114 &1552379420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -911,6 +912,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c589518cd12f5e149bcd01850b3531c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  userName: 
+  SaveData:
+    recordHolder: 
+    record: 0
+  bestScoreText: {fileID: 0}
 --- !u!4 &1552379421
 Transform:
   m_ObjectHideFlags: 0
@@ -965,10 +971,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 25
+    m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 2
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
