@@ -23,10 +23,7 @@ public class MenuManager : MonoBehaviour
     {
         startButton.onClick.AddListener(StartNew);
         dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
-        string highScorePlayer = dataManager.bestScoreHolder;
-        int score = dataManager.bestScore;
-        bestScoreText.text = "Best Score : " + highScorePlayer + " : " + score;
-
+        bestScoreText.text = "Best Score : " + dataManager.SaveData.recordHolder + " : " + dataManager.SaveData.record;
     }
 
     public void StartNew()

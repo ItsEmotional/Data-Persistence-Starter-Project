@@ -9,9 +9,7 @@ public class DataManager : MonoBehaviour
 {
     public static DataManager Instance;
     public string userName;
-    public string bestScoreHolder;
-    public int bestScore;
-    public int score;
+    public GameData SaveData;
 
         private void Awake()
     {
@@ -20,18 +18,13 @@ public class DataManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
             LoadData();
-        }
-        else if (Instance != this)
-        {
-            Destroy(gameObject);
-        }
-
+        }    
     }
 
 
 
     [System.Serializable]
-    class SaveData
+    public class GameData
     {
         public string recordHolder;
         public int record;
@@ -39,31 +32,20 @@ public class DataManager : MonoBehaviour
 
     public void SaveScore()
     {
-        SaveData data = new SaveData();
-        data.record = score;
-
-        if (score > bestScore)
-        {
-            data.record = score;
-            bestScore = data.record;
-            data.recordHolder = userName;
-            bestScoreHolder = data.recordHolder;
-        }
-
-        string json = JsonUtility.ToJson(data);
-
-        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+        string saveDataJson = JsonUtility.ToJson(SaveData);
+        string path = Path.Combine(Application.persistentDataPath, "SaveData.json");
+        File.WriteAllText(path,saveDataJson);
     }
 
     public void LoadData()
     {
-        string path = Application.persistentDataPath + "/savefile.json";
+        string path = Path.Combine(Application.persistentDataPath, "SaveData.json");
         if (File.Exists(path))
         {
-            string json = File.ReadAllText(path);
-            SaveData data = JsonUtility.FromJson<SaveData>(json);
-            bestScore = data.record;
-            bestScoreHolder = data.recordHolder;
+            string saveDataJson = File.ReadAllText(path);
+            SaveData = JsonUtility.FromJson<GameData>(saveDataJson);
         }
+    
+
     }
 }
